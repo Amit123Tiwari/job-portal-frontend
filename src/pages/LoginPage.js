@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../api';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -10,7 +11,7 @@ function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/login', { email, password })
+    axios.post(`${BASE_URL}/api/login`, { email, password })
       .then((res) => {
         localStorage.setItem('token', res.data.token);
         navigate('/dashboard');

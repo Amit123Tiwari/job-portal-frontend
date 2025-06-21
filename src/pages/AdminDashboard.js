@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { BASE_URL } from '../api';
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ function AdminDashboard() {
 
   // ✅ Reusable fetchUsers wrapped in useCallback
   const fetchUsers = useCallback(() => {
-    axios.get('http://localhost:5000/api/admin/users', {
+    axios.get(`${BASE_URL}/api/admin/users`, {
       headers: { Authorization: token }
     })
       .then((res) => {
@@ -37,11 +38,11 @@ function AdminDashboard() {
     fetchUsers();
   }, [token, fetchUsers]);
 
-  // ✅ Delete user
+  // ✅ Delete user using BASE_URL
   const deleteUser = (userId) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
-    axios.delete(`http://localhost:5000/api/admin/users/${userId}`, {
+    axios.delete(`${BASE_URL}/api/admin/users/${userId}`, {
       headers: { Authorization: token }
     })
       .then(() => {

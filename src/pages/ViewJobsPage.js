@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-
+import { BASE_URL } from '../api';
 function ViewJobsPage() {
   const [jobs, setJobs] = useState([]);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/jobs')
+    axios.get(`${BASE_URL}/api/jobs`)
       .then((res) => {
         setJobs(res.data || []);
       })

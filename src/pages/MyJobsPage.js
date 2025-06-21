@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { BASE_URL } from '../api';
 
 function MyJobsPage() {
   const [jobs, setJobs] = useState([]);
@@ -22,7 +23,7 @@ function MyJobsPage() {
       return;
     }
 
-    axios.get('http://localhost:5000/api/my-jobs', {
+    axios.get(`${BASE_URL}/api/my-jobs`, {
       headers: {
         Authorization: token
       }

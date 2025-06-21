@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+import { BASE_URL } from '../api';
+
 
 function ViewApplicantsPage() {
   const { jobId } = useParams(); // comes from URL like /view-applicants/:jobId
@@ -27,7 +29,7 @@ function ViewApplicantsPage() {
     }
 
     // Fetch applicants for this job
-    axios.get(`http://localhost:5000/api/job-applicants/${jobId}`, {
+    axios.get(`${BASE_URL}/api/job-applicants/${jobId}`, {
       headers: { Authorization: token }
     })
       .then((res) => {

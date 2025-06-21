@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../api';
+
 
 function PostJobPage() {
   const [title, setTitle] = useState('');
@@ -28,7 +30,7 @@ function PostJobPage() {
     e.preventDefault();
     const token = localStorage.getItem('token');
 
-    axios.post('http://localhost:5000/api/post-job',
+    axios.post(`${BASE_URL}/api/post-job`,
       { title, description, location, salary },
       { headers: { Authorization: token } }
     )
