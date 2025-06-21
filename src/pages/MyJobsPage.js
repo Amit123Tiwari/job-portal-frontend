@@ -23,6 +23,8 @@ function MyJobsPage() {
       window.location.href = '/dashboard';
       return;
     }
+    console.log("Token being sent:", token);
+
 
     axios
       .get(`${BASE_URL}/api/my-jobs`, {
