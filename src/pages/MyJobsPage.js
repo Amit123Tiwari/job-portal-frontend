@@ -51,9 +51,11 @@ function MyJobsPage() {
         alert('✅ Job deleted successfully');
       })
       .catch((err) => {
-        console.error('Error deleting job:', err);
-        alert('❌ Failed to delete job');
-      });
+  console.error('Error fetching jobs:', err);
+  const msg = err.response?.data?.message || err.message || '❌ Failed to load jobs';
+  setMessage(msg);
+});
+
   };
 
   const handleViewApplicants = (jobId) => {
