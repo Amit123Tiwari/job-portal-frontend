@@ -32,7 +32,7 @@ function ViewJobsPage() {
       return;
     }
 
-    axios.post('http://localhost:5000/api/apply-job', { jobId }, {
+    axios.post(`${BASE_URL}/api/apply-job`, { jobId }, {
       headers: { Authorization: token }
     })
       .then(() => {
