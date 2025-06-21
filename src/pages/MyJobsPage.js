@@ -45,7 +45,7 @@ function MyJobsPage() {
       return;
     }
 
-    axios.delete(`http://localhost:5000/api/my-job/${jobId}`, {
+    axios.delete(`${BASE_URL}/api/my-job/${jobId}`, {
       headers: { Authorization: token }
     })
       .then(() => {
