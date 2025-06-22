@@ -8,22 +8,16 @@ import PostJobPage from './pages/PostJobPage';
 import MyJobsPage from './pages/MyJobsPage';
 import ViewJobsPage from './pages/ViewJobsPage';
 import AdminDashboard from './pages/AdminDashboard';
+import ViewApplicantsPage from './pages/ViewApplicantsPage'; // ✅ for /job-applicants/:jobId
 import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import ApplicantsPage from './pages/ApplicantsPage';
-import { Navigate } from 'react-router-dom';
-import Footer from './components/Footer'; 
-
-
-
+import HomePage from './pages/HomePage'; // ✅ Home page
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
@@ -31,10 +25,8 @@ function App() {
         <Route path="/my-jobs" element={<MyJobsPage />} />
         <Route path="/jobs" element={<ViewJobsPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/applicants/:jobId" element={<ApplicantsPage />} />
-
+        <Route path="/job-applicants/:jobId" element={<ViewApplicantsPage />} /> {/* ✅ Important route */}
       </Routes>
-       <Footer /> 
     </Router>
   );
 }
