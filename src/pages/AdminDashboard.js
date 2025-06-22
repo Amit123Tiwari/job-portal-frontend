@@ -8,21 +8,15 @@ function AdminDashboard() {
   const [adminName, setAdminName] = useState('');
   const token = localStorage.getItem('token');
 
-  // ✅ Reusable fetchUsers wrapped in useCallback
   const fetchUsers = useCallback(() => {
-    axios.get(`${BASE_URL}/api/admin/users`, {
-      headers: {
-  Authorization: `Bearer ${token}`
-    })
-      .then((res) => {
-        setUsers(res.data);
+    axios
+      .get(`${BASE_URL}/api/admin/users`, {
+        headers: { Authorization: `Bearer ${token}` }
       })
-      .catch((err) => {
-        console.error('Error fetching users:', err);
-      });
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.error('Error fetching users:', err));
   }, [token]);
 
-  // ✅ useEffect with token dependency
   useEffect(() => {
     if (!token) {
       alert('Unauthorized');
@@ -39,16 +33,13 @@ function AdminDashboard() {
     fetchUsers();
   }, [token, fetchUsers]);
 
-  // ✅ Delete user using BASE_URL
   const deleteUser = (userId) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
-    axios.delete(`${BASE_URL}/api/admin/users/${userId}`, {
-      headers: {
-  Authorization: `Bearer ${token}`  // ✅ Bearer prefix is compulsory
-}
-
-    })
+    axios
+      .delete(`${BASE_URL}/api/admin/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
       .then(() => {
         alert('User deleted successfully');
         fetchUsers();
@@ -75,7 +66,6 @@ function AdminDashboard() {
         flexWrap: 'wrap',
         gap: '20px'
       }}>
-
         {/* 👷 Workers */}
         <div style={{
           flex: '1 1 45%',
