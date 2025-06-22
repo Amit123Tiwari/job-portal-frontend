@@ -8,15 +8,22 @@ function AdminDashboard() {
   const [adminName, setAdminName] = useState('');
   const token = localStorage.getItem('token');
 
+  // ✅ Reusable fetchUsers function
   const fetchUsers = useCallback(() => {
-    axios
-      .get(`${BASE_URL}/api/admin/users`, {
-        headers: { Authorization: `Bearer ${token}` }
+    axios.get(`${BASE_URL}/api/admin/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        setUsers(res.data);
       })
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.error('Error fetching users:', err));
+      .catch((err) => {
+        console.error('Error fetching users:', err);
+      });
   }, [token]);
 
+  // ✅ useEffect to decode token and load users
   useEffect(() => {
     if (!token) {
       alert('Unauthorized');
@@ -33,16 +40,18 @@ function AdminDashboard() {
     fetchUsers();
   }, [token, fetchUsers]);
 
+  // ✅ Delete user
   const deleteUser = (userId) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
-    axios
-      .delete(`${BASE_URL}/api/admin/user/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+    axios.delete(`${BASE_URL}/api/admin/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(() => {
         alert('User deleted successfully');
-        fetchUsers();
+        fetchUsers(); // Refresh after delete
       })
       .catch((err) => {
         console.error('Error deleting user:', err);
@@ -66,7 +75,8 @@ function AdminDashboard() {
         flexWrap: 'wrap',
         gap: '20px'
       }}>
-        {/* 👷 Workers */}
+
+        {/* Workers Section */}
         <div style={{
           flex: '1 1 45%',
           background: '#f8f8f8',
@@ -101,7 +111,7 @@ function AdminDashboard() {
           )}
         </div>
 
-        {/* 🧑‍💼 Employers */}
+        {/* Employers Section */}
         <div style={{
           flex: '1 1 45%',
           background: '#e6f0ff',

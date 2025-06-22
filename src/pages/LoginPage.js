@@ -6,6 +6,7 @@ import { BASE_URL } from '../api';
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -21,43 +22,9 @@ function LoginPage() {
       });
   };
 
-  const styles = {
-    container: {
-      minHeight: '100vh',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      background: '#f2f2f2',
-    },
-    card: {
-      background: '#fff',
-      padding: '30px',
-      borderRadius: '10px',
-      boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-      width: '300px',
-      textAlign: 'center'
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      margin: '10px 0',
-      borderRadius: '5px',
-      border: '1px solid #ccc'
-    },
-    button: {
-      width: '100%',
-      padding: '10px',
-      backgroundColor: '#222',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer'
-    }
-  };
-
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
+    <div style={{ minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#f2f2f2' }}>
+      <div style={{ background: '#fff', padding: '30px', borderRadius: '10px', boxShadow: '0 0 10px rgba(0,0,0,0.1)', width: '300px', textAlign: 'center' }}>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input
@@ -65,20 +32,30 @@ function LoginPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={styles.input}
             required
+            style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
-            required
-          />
-          <button type="submit" style={styles.button}>Login</button>
+          <div style={{ position: 'relative' }}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ width: '100%', padding: '10px', marginBottom: '10px' }}
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ position: 'absolute', right: '10px', top: '10px', cursor: 'pointer', fontSize: '14px' }}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          </div>
+          <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#222', color: '#fff', border: 'none', borderRadius: '5px' }}>
+            Login
+          </button>
         </form>
-        <p>
+        <p style={{ marginTop: '10px' }}>
           Don't have an account? <a href="/register">Register</a>
         </p>
       </div>

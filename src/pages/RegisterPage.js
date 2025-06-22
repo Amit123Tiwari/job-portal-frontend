@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../api';
 
-
 function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState('worker');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -18,7 +19,7 @@ function RegisterPage() {
     axios.post(`${BASE_URL}/api/register`, {
       name,
       email,
-       phone,
+      phone,
       password,
       role
     })
@@ -44,7 +45,7 @@ function RegisterPage() {
       padding: '30px',
       borderRadius: '10px',
       boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-      width: '300px',
+      width: '320px',
       textAlign: 'center'
     },
     input: {
@@ -94,14 +95,6 @@ function RegisterPage() {
             required
           />
           <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
-            required
-          />
-          <input
             type="text"
             placeholder="Phone Number"
             value={phone}
@@ -109,8 +102,33 @@ function RegisterPage() {
             style={styles.input}
             required
           />
-
-          <select value={role} onChange={(e) => setRole(e.target.value)} style={styles.select}>
+          <div style={{ position: 'relative' }}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={styles.input}
+              required
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: '20px',
+                top: '8px',
+                cursor: 'pointer',
+                fontSize: '14px'
+              }}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          </div>
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            style={styles.select}
+          >
             <option value="worker">Worker</option>
             <option value="employer">Employer</option>
             <option value="admin">Admin</option>
