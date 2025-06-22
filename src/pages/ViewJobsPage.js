@@ -33,7 +33,10 @@ function ViewJobsPage() {
     }
 
     axios.post(`${BASE_URL}/api/apply-job`, { jobId }, {
-      headers: { Authorization: token }
+      headers: {
+  Authorization: `Bearer ${token}`  // ✅ Bearer prefix is compulsory
+}
+
     })
       .then(() => {
         alert('✅ Applied successfully!');

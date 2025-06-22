@@ -43,7 +43,10 @@ function AdminDashboard() {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
     axios.delete(`${BASE_URL}/api/admin/users/${userId}`, {
-      headers: { Authorization: token }
+      headers: {
+  Authorization: `Bearer ${token}`  // ✅ Bearer prefix is compulsory
+}
+
     })
       .then(() => {
         alert('User deleted successfully');

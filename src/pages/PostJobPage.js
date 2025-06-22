@@ -32,7 +32,10 @@ function PostJobPage() {
 
     axios.post(`${BASE_URL}/api/post-job`,
       { title, description, location, salary },
-      { headers: { Authorization: token } }
+      { headers: {
+  Authorization: `Bearer ${token}`  // ✅ Bearer prefix is compulsory
+}
+ }
     )
       .then((res) => {
         alert('✅ Job posted successfully!');
