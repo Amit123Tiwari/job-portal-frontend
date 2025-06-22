@@ -4,9 +4,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import { BASE_URL } from '../api';
 
-
 function ViewApplicantsPage() {
-  const { jobId } = useParams(); // comes from URL like /view-applicants/:jobId
+  const { jobId } = useParams(); // comes from URL like /job-applicants/:jobId
   const [applicants, setApplicants] = useState([]);
   const [jobTitle, setJobTitle] = useState('');
   const [message, setMessage] = useState('');
@@ -28,11 +27,15 @@ function ViewApplicantsPage() {
       return;
     }
 
-    // Fetch applicants for this job
-    axios.get(`${BASE_URL}/api/job-applicants/${jobId}`, {
-      headers: { Authorization: token }
-    })
+    // ✅ Fetch applicants for this job
+    axios
+      .get(`${BASE_URL}/api/job-applicants/${jobId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // ✅ FIXED
+        },
+      })
       .then((res) => {
+        console.log('📦 Applicants response:', res.data); // ✅ Debugging
         setApplicants(res.data.applicants || []);
         setJobTitle(res.data.jobTitle || '');
       })
@@ -52,10 +55,17 @@ function ViewApplicantsPage() {
       ) : (
         <ul>
           {applicants.map((applicant, index) => (
-            <li key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
+            <li
+              key={index}
+              style={{
+                marginBottom: '20px',
+                borderBottom: '1px solid #ccc',
+                paddingBottom: '10px',
+              }}
+            >
               <p><strong>Name:</strong> {applicant.name}</p>
               <p><strong>Email:</strong> {applicant.email}</p>
-              <p><strong>Phone:</strong> {applicant.phone}</p> {/* ✅ Show phone number */}
+              <p><strong>Phone:</strong> {applicant.phone}</p> {/* ✅ Display phone */}
             </li>
           ))}
         </ul>
