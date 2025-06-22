@@ -11,7 +11,8 @@ function AdminDashboard() {
   // ✅ Reusable fetchUsers wrapped in useCallback
   const fetchUsers = useCallback(() => {
     axios.get(`${BASE_URL}/api/admin/users`, {
-      headers: { Authorization: token }
+      headers: {
+  Authorization: `Bearer ${token}`
     })
       .then((res) => {
         setUsers(res.data);
